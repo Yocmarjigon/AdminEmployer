@@ -1,0 +1,81 @@
+@startuml
+entity "Empleado" as Empleado {
+  *id_empleado : UUID
+  --
+  nombre : varchar
+  direccion : varchar
+  telefono : varchar
+  correo : varchar
+  fechaContratacion : date
+  departamento : varchar
+  salario : double
+  puesto : varchar
+  id_certificacion : UUID
+  id_capacitacion : UUID
+  id_evaluacion : UUID
+  id_permiso : UUID
+}
+
+entity "Administrador" as Administrador {
+  *id_administrador :UUID
+  --
+  String: email
+  String: contraseñ
+}
+
+entity "Certificacion" as Certificacion {
+  *id_certificacion : UUID
+  --
+  nombreCertificado : varchar
+  fechaObtencion : date
+}
+
+entity "Asistencia" as Asistencia {
+  *id_asistencia : UUID
+  --
+  fecha : date
+  horaEntrada : time
+  horaSalida : time
+}
+
+entity "Nomina" as Nomina {
+  *id_nomina : UUID
+  --
+  salarioBase : double
+  deducciones : double
+  bonificaciones : double
+}
+
+entity "EvaluacionDesempeno" as EvaluacionDesempeno {
+  *id_evaluacion : UUID
+  --
+  fechaEvaluacion : date
+  resumenDesempeno : text
+  puntuacionDesempeno : double
+}
+
+entity "Capacitacion" as Capacitacion {
+  *id_capacitacion : UUID
+  --
+  nombrePrograma : varchar
+  descripcion : text
+  fechaInicio : date
+  fechaFin : date
+}
+
+entity "Permiso" as Permiso {
+  *id_permiso : UUID
+  --
+  fechaInicio : date
+  fechaFin : date
+  tipoPermiso : varchar
+}
+
+Empleado ||--|| Certificacion : "tiene"
+Empleado ||--|| Asistencia : "registra"
+Empleado ||--o{Nomina : "recibe"
+Empleado ||--|| EvaluacionDesempeno : "somete"
+Empleado ||--|| Capacitacion : "participa"
+Empleado ||--|| Permiso : "toma"
+Administrador ||--o{Empleado : "administra"
+@enduml

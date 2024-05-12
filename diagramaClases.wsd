@@ -1,0 +1,87 @@
+@startuml
+class Administrador {
+  -String: email
+  -String: contraseña
+  +gestionarUsuarios()
+  +configurarSistema()
+  +realizarAuditorias()
+  +respaldarDatos()
+  +crearEmpleado()
+  +eliminarEmpleado()
+  +actualizarEmpleado()
+}
+
+class Empleado {
+  -String: nombre
+  -String: direccion
+  -String: telefono
+  -String: correo
+  -Date: fechaContratacion
+  -String: departamento
+  -double: salario
+  -String: puesto
+  -List<Certificacion>: certificaciones
+  -List<Capacitacion>: capacitaciones
+  -List<EvaluacionDesempeño>: evaluacionDesempeño
+  -List<Permiso>: permisos
+  +verPerfil()
+  +actualizarPerfil()
+}
+
+
+class Certificacion {
+  -String: nombreCertificado
+  -Date: fechaObtencion
+  +validar()
+}
+
+class Asistencia {
+  -Date: fecha
+  -Time: horaEntrada
+  -Time: horaSalida
+  +calcularHoras(): double
+}
+
+class Nomina {
+  -double: salarioBase
+  -double: deducciones
+  -double: bonificaciones
+  +calcularSalarioNeto(): double
+  +generarReciboPago()
+}
+
+class EvaluacionDesempeno {
+  -Date: fechaEvaluacion
+  -String: resumenDesempeno
+  -double: puntuacionDesempeno
+  +establecerObjetivos()
+  +evaluarEmpleado()
+}
+
+class Capacitacion {
+  -String: nombrePrograma
+  -String: descripcion
+  -Date: fechaInicio
+  -Date: fechaFin
+  +inscribirEmpleado(Empleado)
+  +seguimientoProgreso(Empleado)
+}
+
+class Permiso {
+  -Date: fechaInicio
+  -Date: fechaFin
+  -String: tipoPermiso
+  +aprobarPermiso()
+  +rechazarPermiso()
+}
+
+Empleado "1" -- "0..*" Certificacion : Tiene
+Empleado "1" -- "0..*" Asistencia :Recibe
+Empleado "1" -- "1" Nomina : Recibe
+Empleado "1" -- "0..*" EvaluacionDesempeno: Realiza
+Empleado "1" -- "0..*" Capacitacion : Realiza
+Empleado "1" -- "0..*" Permiso : Tiene
+Administrador "1" -- "0..*" Empleado : Gestiona
+
+@enduml
+
