@@ -1,5 +1,4 @@
 import { HttpResponse } from "../errors/CustomError.js";
-import Empleado from "../models/Empleado.js";
 import { validationResult } from "express-validator";
 import {
   findAll,

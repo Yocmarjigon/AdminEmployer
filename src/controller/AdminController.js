@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import { HttpResponse } from "../errors/CustomError.js";
-import Admin from "../models/Admin.js";
 import { findAll, create, findById, remove, update } from "../services/AdminService.js";
 
 /* 
@@ -43,7 +42,7 @@ const _create = async (req, res) => {
       return res.status(400).json({ errors: error.array() });
     }
 
-    const result = await create(new Admin(email, password));
+    const result = await create({ email, password });
     res.send({ message: "Administrador creado correctamente", result: result });
   } catch (error) {
     if (error.code === "23505") {

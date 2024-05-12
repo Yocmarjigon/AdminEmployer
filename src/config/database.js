@@ -1,12 +1,18 @@
-import postgres from "postgres";
+import { Sequelize } from "sequelize";
 
-const sql = postgres({
+const datasource = new Sequelize({
   host: "localhost",
   port: 5432,
-  database: "adminemployer",
   username: "postgres",
   password: "1234",
-});
+  dialect: "postgres",
+  database: "adminemployer",
+})
+
+const connection =  () => {
+    datasource.authenticate().then(() => console.log("Connection has been established successfully.")).catch((error) => console.error("Unable to connect to the database:", error)).catch((error) => console.error("Unable to connect to the database:", error));
+    console.log("Connection has been established successfully.");
+}
 
 const generateTable = () => {
    sql` CREATE TABLE IF NOT EXISTS admin (id uuid default gen_random_uuid() primary key , email varchar not null unique,password varchar not null);`.then(() => console.log("done"));
@@ -14,4 +20,4 @@ const generateTable = () => {
 
 };
 
-export { sql, generateTable };
+export { connection, generateTable };

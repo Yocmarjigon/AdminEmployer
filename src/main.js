@@ -1,6 +1,6 @@
 import express from "express";
 import pc from "picocolors";
-import { generateTable } from "./config/database.js";
+import { connection, generateTable } from "./config/database.js";
 import routerAdmin from "./router/AdminRouter.js";
 import routerEmpleado from "./router/EmpleadoRouter.js";
 
@@ -8,7 +8,7 @@ import routerEmpleado from "./router/EmpleadoRouter.js";
 const app = express();
 app.use(express.json());
 
-
+connection()
 
 app.use("/admin", routerAdmin);
 app.use("/empleados", routerEmpleado);

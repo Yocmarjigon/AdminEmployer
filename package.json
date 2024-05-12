@@ -17,7 +17,10 @@
    "dependencies": {
       "express": "4.19.2",
       "express-validator": "^7.0.1",
-      "postgres": "^3.4.4"
+      "pg": "^8.11.5",
+      "pg-hstore": "^2.3.4",
+      "postgres": "^3.4.4",
+      "sequelize": "^6.37.3"
    },
    "devDependencies": {
       "picocolors": "1.0.0"
