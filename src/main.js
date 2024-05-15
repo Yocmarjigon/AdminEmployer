@@ -1,6 +1,6 @@
 import express from "express";
 import pc from "picocolors";
-import { connection, generateTable } from "./config/database.js";
+import { connection } from "./config/database.js";
 import routerAdmin from "./router/AdminRouter.js";
 import routerEmpleado from "./router/EmpleadoRouter.js";
 

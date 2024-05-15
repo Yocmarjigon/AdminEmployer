@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 
+
 const datasource = new Sequelize({
   host: "dpg-cp0371njbltc73dmjl2g-a.oregon-postgres.render.com",
   port: 5432,
@@ -22,4 +23,4 @@ const connection =  () => {
 }
 
 
-export { connection, generateTable };
+export { connection};
