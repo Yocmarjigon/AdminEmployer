@@ -1,8 +1,8 @@
 import { Sequelize, DataTypes } from "sequelize";
+import { datasource } from "../config/database.js";
 
-const sequelize = new Sequelize("postgres://adminemployer_user:NMey6TCqL8LJR7Ae4ssr8t0GG5XVDe9R@dpg-cp0371njbltc73dmjl2g-a.oregon-postgres.render.com/adminemployer");
 
-const  Empleados = sequelize.define("empleados", {
+const  Empleados = datasource.define("empleados", {
   id : {
     type: DataTypes.UUID,
     primaryKey: true

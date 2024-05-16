@@ -4,17 +4,22 @@ import { connection } from "./config/database.js";
 import routerAdmin from "./router/AdminRouter.js";
 import routerEmpleado from "./router/EmpleadoRouter.js";
 
-
 const app = express();
 app.use(express.json());
 
-connection()
+connection();
 
 app.use("/admin", routerAdmin);
 app.use("/empleados", routerEmpleado);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.use((err, req, res, next) => {
   res.status(500).send({ error: err.message });
   next(err);
 });
-app.listen(3000, () => console.log("Server running on port: "+pc.green("http://localhost:3000")));
+app.listen(3000, () =>
+  console.log("Server running on port: " + pc.green("http://localhost:3000"))
+);

@@ -8,9 +8,10 @@ registrados en la base de datos.
 -------------------------------------------------------------------------------------->
  */
 
-const _findAll = async (req, res) => {
+const _findAll = async (req, res, next) => {
   const result = await findAll();
   res.send(result);
+  next();
 };
 //-------------------------------------------------------------------------------------->
 
