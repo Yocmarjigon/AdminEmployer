@@ -1,0 +1,112 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Admin API",
+    "version": "1.0.0",
+    "description": "API para la administración"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+
+  "paths": {
+    "/admin": {
+      "get": {
+        "summary": "Obtiene información de administración",
+        "operationId": "getAdminInfo",
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      },
+      "post": {
+        "summary": "Actualiza información de administración",
+        "operationId": "updateAdminInfo",
+        "requestBody": {
+          "description": "Objeto de datos para actualizar la administración",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "adminName": {
+                    "type": "string"
+                  },
+                  "adminEmail": {
+                    "type": "string"
+                  }
+                },
+                "required": ["adminName", "adminEmail"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualización exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta"
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdminInfo": {
+        "type": "object",
+        "properties": {
+          "adminName": {
+            "type": "string"
+          },
+          "adminEmail": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
