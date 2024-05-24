@@ -1,0 +1,30 @@
+{
+   "name": "adminemployers",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "type": "module",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "node --watch ./src/main.js",
+      "start": "ts-node src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "migration:create": "typeorm migration:create ./migration/CreateAdminsTable.ts"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "express": "4.19.2",
+      "express-validator": "^7.0.1",
+      "pg": "^8.11.5",
+      "pg-hstore": "^2.3.4",
+      "postgres": "^3.4.4",
+      "sequelize": "^6.37.3",
+      "swagger-ui-express": "^5.0.0"
+   },
+   "devDependencies": {
+      "dotenv": "^16.4.5",
+      "picocolors": "1.0.0"
+   }
+}
