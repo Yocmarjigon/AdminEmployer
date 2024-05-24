@@ -1,7 +1,14 @@
-import { validationResult } from "express-validator";
 import { HttpResponse } from "../errors/CustomError.js";
-import { findAll, create, findById, remove, update } from "../services/AdminService.js";
-import Admin from "../models/Admin.js";
+import {
+  findAll,
+  create,
+  findById,
+  remove,
+  update,
+} from "../services/AdminService.js";
+import { adminSchema } from "../schema/AdminSchema.js";
+import { adminSchemaUpdate } from "../schema/AdminSchemaUpdate.js";
+
 
 /* 
 Este controlador se encarga de enviar una lista de todos los administradores
@@ -21,9 +28,12 @@ const _findAll = async (req, res) => {
  */
 const _findById = async (req, res) => {
   const result = await findById(req.params.id);
-  console.log(result === null);
+  
   if (result === null) {
-    return HttpResponse.NotFound(res, `No existe el administrador con el id: ${req.params.id}`);
+    return HttpResponse.NotFound(
+      res,
+      `No existe el administrador con el id: ${req.params.id}`
+    );
   }
   res.send(result);
 };
@@ -35,20 +45,26 @@ const _findById = async (req, res) => {
   Si el administrador ya existe, se envía un mensaje de error al cliente.
  */
 const _create = async (req, res) => {
-  const { email, password } = req.body;
+  const { nombre, correo, contraseña } = req.body;
   try {
-    const error = validationResult(req);
+    const body = adminSchema.safeParse({ nombre, correo, contraseña });
 
-    if (!error.isEmpty()) {
-      return res.status(400).json({ errors: error.array() });
+    if (body.error) {
+      return res.status(400).json({ errors: body });
     }
 
-    const result = await create({ email, password });
+    const result = await create(body.data);
     res.send({ message: "Administrador creado correctamente", result: result });
   } catch (error) {
-    if (error.code === "23505") {
-      return HttpResponse.UniqueViolation(res, "El administrador ya existe con el email: " + email);
+    if (error.parent.code === "23505") {
+      console.log(error);
+      return HttpResponse.UniqueViolation(
+        res,
+        "El administrador ya existe con el email: " + correo
+      );
+    
     }
+    res.status(500).json({ error: "Ha ocurrido un error en el servidor" });
     console.log(error);
   }
 };
@@ -64,7 +80,10 @@ const _remove = async (req, res) => {
     const result = await remove(req.params.id);
 
     if (result === 0) {
-      return HttpResponse.NotFound(res, `El administrador con el id: ${req.params.id} no existe`);
+      return HttpResponse.NotFound(
+        res,
+        `El administrador con el id: ${req.params.id} no existe`
+      );
     }
     res.send({ message: "Admin deleted", result: result });
   } catch (error) {
@@ -77,13 +96,28 @@ const _remove = async (req, res) => {
   Este constrolador actualiza un administrador de la base de datos.
  */
 const _update = async (req, res) => {
-  const { email, password } = req.body;
-  const result = await update(req.params.id, Admin.build({ email, password }));
-  if (result === 0) {
-    return HttpResponse.NotFound(res, "El administrador no existe");
+  try{
+    const { nombre, correo, contraseña } = req.body;
+  
+    const body = adminSchemaUpdate.safeParse({ nombre, correo, contraseña });
+    if (body.error) {
+      return res.status(400).json({ errors: body });
+    }
+  
+    const result = await update(req.params.id, body.data);
+    
+    if (result[0] === 0) {
+      return HttpResponse.NotFound(res, "El administrador no existe");
+    }
+    
+    res.send({
+      message: "Administrador actualizado correctamente",
+      result: result,
+    });
+  }catch(error){
+    console.log(error);
   }
-  res.send({ message: "Administrador actualizado correctamente", result: result });
-}
-
+  
+};
 
 export { _findAll, _create, _findById, _remove, _update };

@@ -18,19 +18,10 @@ async function findById(id) {
   }
 }
 
-async function create(email, password) {
-  try {
-    return await Admin.create(email, password);
-  } catch (error) {
-    if (error.code === "23505") {
-      return HttpResponse.UniqueViolation(
-        res,
-        "El administrador ya existe con el email: " + email
-      );
-    }
-    console.log(error);
-  }
+async function create(data) {
+  return await Admin.create(data);
 }
+
 async function remove(id) {
   try {
     const result = await Admin.destroy({ where: { id } });
@@ -40,10 +31,16 @@ async function remove(id) {
   }
 }
 
-async function update(id, admin) {
+async function update(id, data) {
   try {
-    const result = await Admin.update({email: admin.email, password: admin.password}, { where: {id}});;
-    console.log(result);
+    const result = await Admin.update(
+      {
+        nombre: data.nombre,
+        correo: data.correo,
+        contrasenia: data.contrasenia,
+      },
+      { where: { id } }
+    );
 
     return result;
   } catch (error) {

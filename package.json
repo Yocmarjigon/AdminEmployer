@@ -21,7 +21,8 @@
       "pg-hstore": "^2.3.4",
       "postgres": "^3.4.4",
       "sequelize": "^6.37.3",
-      "swagger-ui-express": "^5.0.0"
+      "swagger-ui-express": "^5.0.0",
+      "zod": "^3.23.8"
    },
    "devDependencies": {
       "dotenv": "^16.4.5",
