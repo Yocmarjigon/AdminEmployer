@@ -6,8 +6,8 @@ import {
   remove,
   update,
 } from "../services/AdminService.js";
-import { adminSchema } from "../schema/AdminSchema.js";
-import { adminSchemaUpdate } from "../schema/AdminSchemaUpdate.js";
+import { adminSchema, adminSchemaUpdate } from "../schema/AdminSchema.js";
+
 
 
 /* 
