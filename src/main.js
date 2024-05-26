@@ -4,6 +4,7 @@ import { connection } from "./config/database.js";
 import routerAdmin from "./router/AdminRouter.js";
 import routerEmpleado from "./router/EmpleadoRouter.js";
 import "dotenv/config";
+import routerDocumento from "./router/DocumentoRouter.js";
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use((err, req, res, next) => {
 
 app.use("/admin", routerAdmin);
 app.use("/empleados", routerEmpleado);
+app.use("/documentos", routerDocumento);
 
 
 
