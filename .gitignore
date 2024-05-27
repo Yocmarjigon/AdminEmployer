@@ -4,6 +4,4 @@ node_modules/
 build/
 tmp/
 temp/
-diagramaCasosDeUso/
-diagramaClases/
-diagramaEntidadRelacion/
+uploads/
