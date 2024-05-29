@@ -9,11 +9,12 @@ const _findAll = async (req, res) => {
 }
 
 const _create = async (req, res) => {
+    console.log(req.file);
     const body = documentoSchema.safeParse(req.body);
-    
     if (body.error) {
         return res.status(400).json({ errors: body });
     }
+     
     const result = await create(body.data, req.file);
     res.send({ message: "Documento creado correctamente", result: result });
     

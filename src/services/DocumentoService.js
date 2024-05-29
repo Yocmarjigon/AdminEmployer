@@ -17,7 +17,7 @@ async function create(data, file) {
     data.ruta_archivo = path
     data.tipo = originalname.split(".")[1]
     data.fecha_subida = new Date();
-    
+        
     const documento = await Documento.create(data);
 
     return documento;

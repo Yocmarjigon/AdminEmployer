@@ -16,9 +16,11 @@ export const HttpResponse = {
   },
   UniqueViolation(res, message){
     return res.status(ErrorTypes.UNIQUE_VIOLATION).json({"error": "unique violation", "message":message})
+  },
+
+  FormatViolation(res, message){
+    return res.status(ErrorTypes.BAD_REQUEST).json({"error": "format violation", "message":message})
   }
-
-
 }
 
 /* 
