@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity(name = "users")
 public class User {
@@ -15,12 +16,15 @@ public class User {
   private UUID id;
 
   @NonNull
+  @NotBlank(message = "Name cannot be blank")
   private String name;
 
   @NonNull
+  @NotBlank(message = "Email cannot be blank")
   private String email;
 
   @NonNull
+  @NotBlank(message = "Password cannot be blank")
   private String password;
 
   public UUID getId() {

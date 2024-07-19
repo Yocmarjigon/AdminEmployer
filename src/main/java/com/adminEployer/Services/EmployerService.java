@@ -8,8 +8,11 @@ import java.util.*;
 import com.adminEployer.Models.Employer;
 import com.adminEployer.Repository.EmployerRepository;
 
+// Service for Employer
 @Service
 public class EmployerService {
+
+  // Injections
   @Autowired
   private EmployerRepository employerRepository;
 

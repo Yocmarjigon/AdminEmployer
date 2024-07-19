@@ -1,6 +1,8 @@
 package com.adminEployer.Models;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.UUID;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
@@ -10,13 +12,21 @@ public class Employer {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+
   @NonNull
+  @NotBlank(message = "Name cannot be blank")
   private String name;
+  
   @NonNull
+  @NotBlank(message = "Email cannot be blank")
   private String email;
+
   @NonNull
+  @NotBlank(message = "IDentity cannot be blank")
   private String IDentity;
+
   @NonNull
+  @NotBlank(message = "NumberPhone cannot be blank")
   private String numberPhone;
 
 
